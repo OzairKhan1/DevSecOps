@@ -9,7 +9,6 @@ pipeline {
         IMAGE_TAG = "v${BUILD_NUMBER}"
 
         SERVICE   = "checkoutservice"
-[O
     }
 
     stages {
