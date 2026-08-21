@@ -9,7 +9,7 @@ pipeline {
         IMAGE_TAG = "v${BUILD_NUMBER}"
 
         SERVICE   = "loadgenerator"
-[O
+
     }
 
     stages {
@@ -28,8 +28,8 @@ pipeline {
 
             steps {
 
-                sh "docker build -t ozairkhan1/${SERVICE}:${IMAGE_TAG} ."
-
+                // sh "docker build -t ozairkhan1/${SERVICE}:${IMAGE_TAG} ."
+                sh "docker tag  ozairkhan1/${SERVICE}:latest ozairkhan1/${SERVICE}:${IMAGE_TAG}"
                 dockerPush("ozairkhan1/${SERVICE}:${IMAGE_TAG}", "dockerHub-creds")
 
             }
