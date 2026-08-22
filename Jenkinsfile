@@ -1,7 +1,7 @@
 @Library('jShrLibs') _
 pipeline { 
     agent any
-
+ 
     environment {
         SERVICE       = "${env.BRANCH_NAME}"
         IMAGE_TAG     = "v${BUILD_NUMBER}"
