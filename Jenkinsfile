@@ -1,5 +1,5 @@
 @Library('jShrLibs') _
-pipeline {
+pipeline { 
     agent any
 
     environment {
