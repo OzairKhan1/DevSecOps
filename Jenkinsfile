@@ -64,34 +64,22 @@ pipeline {
         //         """
         //     }
         // }
-
-
-        stage('Update Manifest Repo') {
-            steps {
-                dir('manifests') {
-                    gitClone("${MANIFEST_REPO}", "main", "git-creds")
-
-                    sh """
-                        sed -i "s#image: ${DOCKERHUB_NS}/${SERVICE}:.*#image: ${IMAGE}#g" ${MANIFEST_DIR}/${SERVICE}-deployment.yml
-                    """
-
-                    withCredentials([usernamePassword(
-                        credentialsId: 'git-creds',
-                        usernameVariable: 'GIT_USER',
-                        passwordVariable: 'GIT_PASS'
-                    )]) {
-                        sh """
-                            git config user.email "jenkins@ci.local"
-                            git config user.name "jenkins-ci"
-                            git add ${MANIFEST_DIR}/${SERVICE}-deployment.yml
-                            git commit -m "Update ${SERVICE} image to ${IMAGE_TAG} (build ${BUILD_NUMBER})" || echo "No changes to commit"
-                            git push https://${GIT_USER}:${GIT_PASS}@github.com/OzairKhan1/Kubernetes-ManifestFiles.git main
-                        """
-                    }
-                }
-            }
-        }
-
         
     }
+
+	post {
+        success {
+            build job: 'Update-Manifests',
+                  parameters: [
+                      string(name: 'IMAGE_TAG', value: "${IMAGE_TAG}"),
+					  string(name: 'MANIFEST_REPO', value: "${MANIFEST_REPO}"),
+					  string(name: 'DOCKERHUB_NS', value: "${DOCKERHUB_NS}"),
+					  string(name: 'SERVICE', value: "${SERVICE}"),
+					  string(name: 'IMAGE', value: "${IMAGE}"),
+					  string(name: 'MANIFEST_DIR', value: "${MANIFEST_DIR}")
+                  ]
+        }
+    }
+
+	
 }
