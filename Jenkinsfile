@@ -27,12 +27,14 @@ pipeline {
         }
 
         stage('SonarQube Analysis') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "sonar-scanner -Dsonar.projectKey=${SERVICE} -Dsonar.projectName=${SERVICE} -Dsonar.sources=."
+    steps {
+        withSonarQubeEnv('SonarQube') {
+            withEnv(["PATH+SONAR=${tool 'SonarScanner'}/bin"]) {
+                sh "sonar-scanner -Dsonar.projectKey=${SERVICE} -Dsonar.projectName=${SERVICE} -Dsonar.sources=."
                 }
-            }
-        }
+              }
+			}
+		}
 
         stage('SonarQube Quality Gate') {
             steps {
