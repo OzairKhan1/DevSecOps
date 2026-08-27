@@ -34,6 +34,7 @@ pipeline {
             }
         }
 
+//  🚦 SonarQube Analysis Is use to check is the code itself problematic?
 stage('SonarQube Analysis') {
     steps {
         withSonarQubeEnv('SonarQube') {
@@ -48,7 +49,9 @@ stage('SonarQube Analysis') {
         }
     }
 }
+
         
+        // Quality Gate Checks: 🚦 "Is the code good enough to continue?
         // stage('SonarQube Quality Gate') {
         //     steps {
         //         timeout(time: 10, unit: 'MINUTES') {
@@ -57,8 +60,11 @@ stage('SonarQube Analysis') {
         //     }
         // }
 
+
+        // Trivy 🔐 "Are the dependencies, OS packages, or container components vulnerable?"
         stage('Trivy FS Scan') {
             steps {
+                // I have kept '' --exit-code 0 deliberately for testing pipeline. Although we should keep at 1 to abort the pipeline if any severity is found. 
                 sh "trivy fs --severity HIGH,CRITICAL --exit-code 0 --no-progress ."
             }
         }
