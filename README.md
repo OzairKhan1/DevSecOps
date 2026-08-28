@@ -1,5 +1,7 @@
 # 🚀 DevSecOps CI/CD Pipeline — Google Online Boutique
 
+The Kubernetes Manifests for this Project is here: https://github.com/OzairKhan1/Kubernetes-ManifestFiles.git
+
 A production-inspired **DevSecOps, CI/CD, GitOps, Kubernetes, and Observability** project built around Google's **Online Boutique** microservices application.
 
 The project demonstrates an end-to-end software delivery lifecycle:
