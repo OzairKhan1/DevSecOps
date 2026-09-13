@@ -65,13 +65,12 @@ The project demonstrates an end-to-end software delivery lifecycle:
                     Microservices        RBAC            Monitoring
                                       Least Privilege        │
                           │                                  │
-                   ┌──────┼──────┐                   ┌──────┴──────┐
-                   ▼      ▼      ▼                   ▼             ▼
-              ServiceAccount Role RoleBinding     Prometheus  kube-state-metrics
-                                                            │
-                                                            ▼
-                                                         Grafana
-```
+                   ┌──────┼──────┐                  ┌────────┴────────────────┐────────────┐
+                   ▼      ▼      ▼                  ▼                         ▼            ▼
+             ServiceAccount Role RoleBinding     Prometheus Stack       EFK/ELK Stack   Jeager
+                                                            
+                                                          
+``
 
 ---
 
@@ -93,9 +92,9 @@ The project demonstrates an end-to-end software delivery lifecycle:
 - 🔑 Kubernetes **ServiceAccounts**
 - 🛂 Kubernetes **Role & RoleBinding**
 - 🔒 **Principle of Least Privilege**
-- 📈 **Prometheus** monitoring
-- ☸️ **kube-state-metrics**
-- 📊 **Grafana dashboards**
+- 📈 **Prometheus stack** monitoring
+- ☸️ **EFK/ELK STACK** logs anaylysis
+- 📊 **Grafana dashboards** 
 - 🔄 Git-based deployment history
 - 🌐 Polyglot microservices architecture
 
@@ -150,7 +149,7 @@ Argo CD
 Kubernetes
     │
     ▼
-Prometheus + kube-state-metrics
+Prometheus stack
     │
     ▼
 Grafana
