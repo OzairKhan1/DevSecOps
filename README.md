@@ -56,7 +56,7 @@ The project demonstrates an end-to-end software delivery lifecycle:
                                             ▼
                          ┌────────────────────────────────────────┐
                          │         Kubernetes Cluster             │
-                         │              kubeadm                   │
+                         │              EKS/Kubeadm                   │
                          └──────────────────┬─────────────────────┘
                                             │
                           ┌─────────────────┼─────────────────┐
@@ -77,7 +77,7 @@ The project demonstrates an end-to-end software delivery lifecycle:
 
 # ⭐ Main Features
 
-- 🔄 Jenkins **Multibranch CI/CD Pipeline**
+- 🔄 Gitlab-Ci/Jenkins **Multibranch CI/CD Pipeline**
 - 🌿 Branch-based microservice identification
 - 🔐 **GitLeaks** secret detection
 - 🧪 Automated unit testing
@@ -102,8 +102,7 @@ The project demonstrates an end-to-end software delivery lifecycle:
 ---
 
 # 🔄 End-to-End Pipeline
-
-The Jenkins pipeline follows this workflow:
+Jenkins pipeline follows this workflow: But For Gitlab-CI a Centrailized-Ci-Project is used and will be Trigger from Other Repo. Each branch carry a common file loading the centralize Repo. 
 
 ```text
 Developer
@@ -208,7 +207,7 @@ Security is integrated directly into the CI/CD lifecycle rather than being perfo
 | **SonarQube Quality Gate** | Decide whether code meets defined quality/security requirements |
 | **Trivy FS** | Scan project files and dependencies for vulnerabilities |
 | **Trivy Image** | Scan the actual container image for vulnerabilities |
-| **Jenkins Credentials** | Securely store CI/CD credentials |
+| **Jenkins Credentials** | Securely store CI/CD credentials| **Gitlab-Ci Variable Masking** |
 | **Kubernetes RBAC** | Control access to Kubernetes resources |
 | **Least Privilege** | Grant only the permissions actually required |
 
@@ -332,7 +331,7 @@ gradle test
 
 The project uses Docker for containerized microservices.
 
-Images are versioned using the Jenkins build number.
+Images are versioned using the Jenkins build number and for Gitlab-Ci the **CI_PIPELINE_IID** is used.
 
 Example:
 
@@ -378,7 +377,7 @@ The versioned image is then referenced by the Kubernetes manifest.
 
 ---
 
-# 🌿 Jenkins Multibranch Pipeline
+# 🌿 Jenkins Multibranch Pipeline/ Gitlab-Ci Uses common Centralized .gitlab-ci.yml file loading from another Repo-having all the branches.   
 
 The pipeline is designed to support multiple microservices using a common Jenkinsfile.
 
@@ -409,7 +408,7 @@ This allows the same CI/CD logic to be reused across multiple microservices.
 
 ---
 
-# 🧰 Jenkins Tools
+# 🧰 Jenkins Tools/ Gitlab uses Images such as eclipse-temurin:19-jdk, docker.for public runner and for private Runner tools are needed to be installed manually 
 
 The Jenkins pipeline uses centrally configured tools such as:
 
@@ -821,7 +820,7 @@ This project demonstrates practical implementation of:
 | Category | Technology |
 |---|---|
 | Source Control | Git / GitHub |
-| CI/CD | Jenkins |
+| CI/CD | Jenkins/ Gitlab-Ci|
 | Pipeline | Jenkins Multibranch Pipeline |
 | Shared Library | Jenkins Shared Library |
 | Secret Detection | GitLeaks |
@@ -904,7 +903,7 @@ This project combines modern DevSecOps and cloud-native technologies into a comp
 ```text
 GitHub
    ↓
-Jenkins
+Jenkins/Gitlab-Ci (Which undermine the use of github-Webhooks)
    ↓
 GitLeaks
    ↓
